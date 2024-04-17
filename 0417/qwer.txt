@@ -1,0 +1,57 @@
+프렌드함수
+	전역함수, 다른클래스의 멤버함수, 다른 클래스 전체
+
+	class Rect { // Rect 클래스 선언
+		...
+		friend bool equals(Rect r, Rect s);
+	};
+
+	class Rect {
+		.............
+		friend bool RectManager::equals(Rect r, Rect s);
+	};
+
+	class Rect {
+		.............
+		friend RectManager;
+	};
+
+
+연산자 중복
+	본래부터 있던 연산자에 새로운 의미 정의
+		ex) + 정수더하기, 문자열합치기, 색섞기, 배열합치기
+	c++에 원래 있는 연산자만 중복가능
+	피 연산자 타입이 다른 새로운 연산 정의
+	연산자는 함수 형태로 구현 - 연산자 함수(operator function)
+	반드시 클래스와 관계를 가짐
+	피연산자의 개수를 바꿀 수 없음
+	연산의 우선 순위 변경 안됨
+	모든 연산자가 중복 가능하지 않음
+
+	리턴타입 operator연산자(매개변수리스트);
+
+	선언
+	class Color {
+		...
+		friend Color operator+ (Color op1, Color op2);
+		friend bool operator== (Color op1, Color op2);
+	};
+
+	class Color {
+		...
+		Color operator+ (Color op2);
+		bool operator== (Color op2);
+	};
+
+	이항 연산자 중복 : + 연산자
+	== 연산자 중복
+	+= 연산자 중복
+
+단항 연산자 중복
+	전위 ++ 연산자 중복
+	후위 연산자 중복, ++ 연산자
+	예제 7-11 2+a를 위한 + 연산자 함수를 프렌드로 작성
+
+	+ 연산자를 외부 프렌드 함수로 구현
+	단항 연산자 ++를 프렌드로 작성하기
+	예제 7-14 참조를 리턴하는 << 연산자 작성
